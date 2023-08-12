@@ -1,0 +1,15 @@
+db.produtos.aggregate([{
+    "$group": {
+        id: null,
+        soma: {$sum: "$valor"},
+        media: {$avg: "$valor"},
+        maximo: {$max: "$maximo"},
+        minimo: {$min: "$valor"}
+    }
+},
+{
+    "$project": {
+        _id: 0
+    }
+}
+])
