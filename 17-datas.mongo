@@ -1,0 +1,34 @@
+db.clientes.insertOne({
+    "nome": "Calebe Danilo Roberto Figueiredo", 
+    "cpf": "028.796.232-60",
+    "data_nascimento": ISODate("1986-10-01"),
+    "data_nascimentxo": Date(),
+    "genero": "Masculino",
+    "profissao": "Supervisor de vendas comercial",
+    "status_civil": "Viúvo(a)"})
+
+db.clientes.aggregate([{
+    "$project": {
+        nome: "$nome"
+        ,
+        ano: {
+            $year: "$data_nascimento"
+        },
+        mes: {
+            $month: "$data_nascimento"
+        },
+        dia: {
+            $dayOfWeek: "$data_nascimento"
+        }
+    }
+}])
+
+db.clientes.aggregate([{
+    "$project": {
+        nome: "$nome"
+        ,
+        data: {
+            $dateToParts: {date: "$data_nascimento"}
+        }
+    }
+}])
