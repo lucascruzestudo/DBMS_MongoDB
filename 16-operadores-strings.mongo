@@ -1,0 +1,73 @@
+db.clientes.aggregate([{
+    "$project": {
+        descricao: {
+        $concat: ["$nome", "-", "$cpf"]}
+    }
+}])
+
+db.clientes.aggregate([{
+    "$project": {
+        nome: {
+        $split: ["$nome", " "]},
+        cpf: {
+            $split: ["$cpf", "-"]
+        }
+    }
+}])
+
+
+db.clientes.aggregate([{
+    "$project": {
+        nome: {
+        $toLower: "$nome"},
+    }
+}])
+
+db.clientes.aggregate([{
+    "$project": {
+        nome: {
+        $toUpper: "$nome"},
+    }
+}])
+
+db.contas.aggregate([{
+    "$project": {
+        valor: {
+            $toString: "$valor"
+        }
+    }
+}])
+
+db.contas.aggregate([{
+    "$project": {
+        valor: {
+            $toInt: "$valor"
+        }
+    }
+}])
+
+db.contas.aggregate([{
+    "$project": {
+        descricao: { 
+            
+            $toUpper: {
+            $concat: [
+                "O cliente de cpf ", "$cpf", " possui R$ ", {$toString: "$valor"}, " na ", "$tipo" 
+            ]
+        }}
+    }
+}])
+
+db.contas.find()
+
+db.clientes.find()
+
+db.produtos.aggregate([{
+    $project: {
+        "$toLower": {
+            $concat: [
+                "O produto ", "$nomeproduto", "possui o valor de R$ ", {$toString: "$valor"}, "."
+            ]
+        }
+    }
+}])

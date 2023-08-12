@@ -1,0 +1,19 @@
+db.clientes.find()
+db.contas.find()
+
+db.clientes.aggregate([{
+    "$lookup": {
+        from: "contas",
+        localField: "cpf",
+        foreignField: "cpf",
+        as: "contas"
+    }
+}, {
+    "$project": {
+        "contas.id_cliente": 0,
+        "contas.cpf": 0
+
+    }
+},{
+    "$out": {"db":"showbank", "coll": "clientes-v2"}
+}])

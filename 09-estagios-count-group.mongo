@@ -1,0 +1,15 @@
+db.clientes.aggregate(
+{$count: "numerodeotarios"}
+)
+
+db.contas.aggregate(
+{$group: {"_id": "$tipo"}}
+)
+
+db.contas.aggregate(
+{$group: {"_id": "$tipo", contagem: {$count:{}}}}
+)
+
+db.vendas.aggregate(
+{$group: {"cliente": "$id_cliente", contagem: {$count:{}}}}
+)

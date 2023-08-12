@@ -1,0 +1,21 @@
+db.clientes.find({
+    "status_civil": "Separado(a)"
+})
+
+db.contas.find({
+    valor: {$exists: 0}
+})
+
+db.clientes.find({
+    "dependentes": {"$size": 1}
+}).limit(5)
+
+db.contas.find({
+    $or: [{
+        tipo: {$in: ["Conta salário","Conta poupança"]}
+    },{"valor": {"$gte": 8500}}]
+})
+
+db.clientes.find({
+    "status_civil": "Solteiro(a)", "seguros": {"$exists": true}
+}).sort({nome: 1})

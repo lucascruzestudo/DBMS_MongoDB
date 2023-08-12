@@ -1,0 +1,28 @@
+db.enderecos.aggregate([{"$match": {cidade: "Aracaju"}}])
+
+db.contas.aggregate([{
+    "$match": {"tipo": "Conta corrente"}
+}, {
+    "$sort": {_id: 1}
+} 
+,{
+    "$limit": 5
+}])
+
+db.clientes.aggregate([{
+    "$match": {"profissao": "Analista de sistemas"}
+}, {"$group": {"_id": "$profissao", "contagem": {"$count": {}}}}])
+
+db.clientes.aggregate([
+    {"$match": {"status_civil": "Solteiro(a)"}},
+    {"$sort": {"nome": 1}},
+    {"$project": {nome: 1,status_civil: 1}},
+    {"$limit": 5}
+    
+])
+
+db.contas.aggregate([
+    {"$match": {"$or": [{"tipo": "Conta salário"}, {"valor": {"$lt": 2000}}]}},
+    {"$project": {"cpf": 1, "tipo": 1, "valor":1}},
+    {"$sort": {"valor": 1}}
+])

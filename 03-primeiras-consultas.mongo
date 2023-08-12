@@ -1,0 +1,5 @@
+db.clientes.find()
+
+db.clientes.findOne()
+
+db.contas.find()

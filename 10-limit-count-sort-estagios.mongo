@@ -1,0 +1,13 @@
+db.contas.find().limit(15)
+
+db.contas.aggregate({$limit:5})
+
+db.contas.find().skip(10)
+
+db.contas.aggregate({$skip:240})
+
+db.contas.find().sort({valor:1})
+
+db.contas.aggregate({$sort:{valor:-1}})
+
+db.contas.aggregate([{$skip:240},{$limit:5},{$skip:2},{$sort:{valor:1}}])

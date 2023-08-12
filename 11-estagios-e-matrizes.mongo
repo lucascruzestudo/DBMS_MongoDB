@@ -1,0 +1,9 @@
+db.clientes.find({seguros:{"$exists": true}})
+
+db.clientes.aggregate([{$unwind:"$seguros"}])
+
+db.clientes.aggregate([{$unwind:"$seguros"},{"$sortByCount": "$genero"}])
+
+db.enderecos.aggregate([{"$match": {cidade: "Recife"}}])
+
+db.contas.aggregate([{"$match": { "$and": [{"tipo": {"$eq": "Conta salário"}},{"valor": {"$lt": 1000}}]}},{"$group": {"_id": "$tipo", "contagem": {$count:{}}}}])

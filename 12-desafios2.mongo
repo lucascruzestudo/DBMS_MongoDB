@@ -1,0 +1,7 @@
+db.vendas.aggregate([{$unwind: "$categorias"},{$match: {categorias: "Saúde"}},{$count: "quantidade_vendida"}])
+
+db.clientes.find()
+
+db.clientes.aggregate([{$unwind: "$dependentes"},{"$sortByCount": "$dependentes.genero"}])
+
+db.clientes.aggregate([{$unwind: "$dependentes"},{"$match": {"dependentes.genero": "Masculino"}}])

@@ -1,0 +1,24 @@
+db.contas.find()
+db.contas.find({
+    $and:[{tipo: {$eq: "Conta salário"},},{valor: {$lt: 1000}}]
+})
+
+db.contas.find({
+    $or:[{tipo: {$eq: "Conta corrente"},},{valor: {$lt: 1000}}]
+})
+
+db.enderecos.find({
+    estado: {$not: {$eq:"MG"}}
+})
+
+db.clientes.find({
+    "dependentes": {"$exists": false}
+})
+
+db.clientes.find({
+    "seguros": {"$exists": true}
+})
+
+db.clientes.find({
+    "seguros": {"$type": 2}
+})
