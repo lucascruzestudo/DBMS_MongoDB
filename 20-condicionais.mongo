@@ -1,0 +1,35 @@
+db.contas.aggregate([{
+    "$project": {
+        cpf: 1,
+        tipo: 1,
+        valores: {
+            $cond:[{
+                $gte: ["$valor", 8000]
+            }, "True", "False"]
+        }
+    }
+}])
+
+db.contas.aggregate([{
+    "$project": {
+        valor: {
+            $ifNull:["$valor", "N/A"]
+        }
+    }
+}])
+
+db.contas.aggregate([{
+    "$project": {
+        valor: 1,
+        condicao: {
+            $switch: {
+                branches:[
+                    {case: {$lte: ["$valor", 3000]}, then: "Valor abaixo do esperado"},
+                    {case: {$and: [{$gt: ["$valor", 3000]},{$lte: ["$valor", 6000]}]}, then: "Valor na media",}
+                    
+                    ],
+                default: "Valor acima do esperado"
+            }
+        }
+    }
+}])
